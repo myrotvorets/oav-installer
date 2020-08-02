@@ -1,0 +1,46 @@
+openapi: '3.0.3'
+
+info:
+  title: Test API
+  version: 1.0.0
+
+servers:
+  - url: '/nested/path'
+
+components:
+  securitySchemes:
+    bearer-token:
+      type: http
+      scheme: bearer
+
+paths:
+  /test:
+    get:
+      parameters:
+        - name: s
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  s:
+                    type: string
+                additionalProperties: false
+                required:
+                  - s
+
+  /auth:
+    get:
+      security:
+        - bearer-token: []
+      responses:
+        "204":
+          description: Sucecssful response
