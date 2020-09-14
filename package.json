@@ -29,7 +29,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "express": "^4.17.1",
-    "express-openapi-validator": "^3.16.15",
+    "express-openapi-validator": "^3.17.0",
     "jest": "^26.4.2",
     "merge": "^1.2.1",
     "prettier": "^2.1.1",
