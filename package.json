@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint --no-eslintrc -c .eslintrc.json .",
-    "lint:fix": "eslint --no-eslintrc -c .eslintrc.json --fix .",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "test": "jest"
   },
   "files": [
@@ -23,13 +23,13 @@
     "@types/jest": "^26.0.13",
     "@types/multer": "^1.4.4",
     "@types/supertest": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.1.0",
-    "@typescript-eslint/parser": "^4.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.1.1",
+    "@typescript-eslint/parser": "^4.1.1",
     "eslint": "^7.9.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "express": "^4.17.1",
-    "express-openapi-validator": "^3.17.0",
+    "express-openapi-validator": "^3.17.1",
     "jest": "^26.4.2",
     "merge": "^1.2.1",
     "prettier": "^2.1.1",
