@@ -2,6 +2,10 @@ import express, { Request, Response } from 'express';
 import request from 'supertest';
 import { installOpenApiValidator } from '..';
 
+interface IWithStatus {
+    status?: number;
+}
+
 async function buildServer(install: boolean, env: string): Promise<express.Application> {
     const app = express();
 
@@ -20,8 +24,7 @@ async function buildServer(install: boolean, env: string): Promise<express.Appli
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-        res.status(err.status || 500).json(err);
-        // console.log(err);
+        res.status((err as IWithStatus).status || 500).json(err);
         next(err);
     });
 
@@ -49,7 +52,7 @@ describe('With installOpenApiValidator', () => {
             return request(server)
                 .get('/test')
                 .expect(400)
-                .expect(/\.query\.s/);
+                .expect(/\.query\.s/u);
         });
 
         it('will thoroughly validate requests', async (): Promise<unknown> => {
@@ -57,8 +60,8 @@ describe('With installOpenApiValidator', () => {
             return request(server)
                 .get('/test?s=2012-13-31')
                 .expect(400)
-                .expect(/\.query\.s/)
-                .expect(/should match format/);
+                .expect(/\.query\.s/u)
+                .expect(/should match format/u);
         });
 
         it('will validate responses', async (): Promise<unknown> => {
@@ -66,7 +69,7 @@ describe('With installOpenApiValidator', () => {
             return request(server)
                 .get('/test?s=2012-12-31')
                 .expect(500)
-                .expect(/\.response\.debug/);
+                .expect(/\.response\.debug/u);
         });
     });
 
@@ -76,7 +79,7 @@ describe('With installOpenApiValidator', () => {
             return request(server)
                 .get('/test')
                 .expect(400)
-                .expect(/\.query\.s/);
+                .expect(/\.query\.s/u);
         });
 
         it('will not thoroughly validate requests', async (): Promise<unknown> => {
