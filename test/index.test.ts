@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import request from 'supertest';
-import { installOpenApiValidator } from '..';
+import { installOpenApiValidator } from '../lib';
 
 interface IWithStatus {
     status?: number;
