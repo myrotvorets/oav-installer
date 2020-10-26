@@ -1,8 +1,14 @@
 import type { Express } from 'express';
 import { middleware } from 'express-openapi-validator';
 import { OpenApiSpecLoader } from 'express-openapi-validator/dist/framework/openapi.spec.loader';
+import type { OpenApiValidatorOpts } from 'express-openapi-validator/dist/framework/types';
 
-export async function installOpenApiValidator(specFile: string, app: Express, env: string): Promise<void> {
+export async function installOpenApiValidator(
+    specFile: string,
+    app: Express,
+    env: string,
+    extraOptions: Partial<OpenApiValidatorOpts> = {},
+): Promise<void> {
     const loader = new OpenApiSpecLoader({
         apiDoc: specFile,
         $refParser: {
@@ -14,6 +20,7 @@ export async function installOpenApiValidator(specFile: string, app: Express, en
     spec.apiDoc.servers = [{ url: '/' }];
 
     const validator = middleware({
+        ...extraOptions,
         apiSpec: spec.apiDoc,
         validateSecurity: false,
         validateResponses: env !== 'production',
