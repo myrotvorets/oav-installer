@@ -7,9 +7,9 @@
     "build": "tsc",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "prepare": "npm run build",
     "pretest": "npm run lint",
-    "test": "jest",
-    "posttest": "npm run build"
+    "test": "jest"
   },
   "files": [
     "dist/lib/index.d.ts",
@@ -53,5 +53,8 @@
   "bugs": {
     "url": "https://github.com/myrotvorets/oav-installer/issues"
   },
-  "homepage": "https://github.com/myrotvorets/oav-installer#readme"
+  "homepage": "https://github.com/myrotvorets/oav-installer#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
