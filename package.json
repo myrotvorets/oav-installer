@@ -1,6 +1,6 @@
 {
   "name": "@myrotvorets/oav-installer",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Transforms the OpenAPI specification, configures express-openapi-validator, and installs it into the Express application.",
   "main": "dist/lib/index.js",
   "scripts": {
