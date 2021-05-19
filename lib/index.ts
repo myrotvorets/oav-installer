@@ -1,6 +1,6 @@
-import type { Express } from 'express';
 import { middleware } from 'express-openapi-validator';
 import { OpenApiSpecLoader } from 'express-openapi-validator/dist/framework/openapi.spec.loader';
+import type { Express } from 'express';
 import type { OpenApiValidatorOpts } from 'express-openapi-validator/dist/framework/types';
 
 export async function installOpenApiValidator(
