@@ -20,7 +20,7 @@ async function buildServer(install: boolean, env: string): Promise<express.Appli
         });
     });
 
-    app.get('/auth', (req: Request, res: Response): void => res.status(204).end());
+    app.get('/auth', (req: Request, res: Response): unknown => res.status(204).end());
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
