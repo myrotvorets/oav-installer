@@ -24,7 +24,8 @@ export async function installOpenApiValidator(
         apiSpec: spec.apiDoc,
         validateSecurity: false,
         validateResponses: env !== 'production',
-        validateFormats: env !== 'production' ? 'full' : 'fast',
+        validateFormats: true,
+        ajvFormats: { mode: env !== 'production' ? 'full' : 'fast' },
         $refParser: {
             mode: 'dereference',
         },
