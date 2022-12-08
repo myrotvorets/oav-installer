@@ -52,7 +52,7 @@ describe('With installOpenApiValidator', () => {
             return request(server)
                 .get('/test')
                 .expect(400)
-                .expect(/\.query\.s/u);
+                .expect(/\/query\/s/u);
         });
 
         it('will thoroughly validate requests', async (): Promise<unknown> => {
@@ -60,8 +60,8 @@ describe('With installOpenApiValidator', () => {
             return request(server)
                 .get('/test?s=2012-13-31')
                 .expect(400)
-                .expect(/\.query\.s/u)
-                .expect(/should match format/u);
+                .expect(/\/query\/s/u)
+                .expect(/must match format/u);
         });
 
         it('will validate responses', async (): Promise<unknown> => {
@@ -69,7 +69,7 @@ describe('With installOpenApiValidator', () => {
             return request(server)
                 .get('/test?s=2012-12-31')
                 .expect(500)
-                .expect(/\.response\.debug/u);
+                .expect(/\/response\/debug/u);
         });
     });
 
@@ -79,7 +79,7 @@ describe('With installOpenApiValidator', () => {
             return request(server)
                 .get('/test')
                 .expect(400)
-                .expect(/\.query\.s/u);
+                .expect(/\/query\/s/u);
         });
 
         it('will not thoroughly validate requests', async (): Promise<unknown> => {
