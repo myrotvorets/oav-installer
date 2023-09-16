@@ -1,7 +1,7 @@
 # oav-installer
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=myrotvorets_oav-installer&metric=alert_status)](https://sonarcloud.io/dashboard?id=myrotvorets_oav-installer)
-![Build and Test CI](https://github.com/myrotvorets/oav-installer/workflows/Build%20and%20Test%20CI/badge.svg)
+[![Build and Test](https://github.com/myrotvorets/oav-installer/actions/workflows/build.yml/badge.svg)](https://github.com/myrotvorets/oav-installer/actions/workflows/build.yml)
 [![codebeat badge](https://codebeat.co/badges/f52e3ff4-8832-4da4-af44-5ca3ea111b9d)](https://codebeat.co/projects/github-com-myrotvorets-oav-installer-master)
 
 This package is internally used by our microservices.
