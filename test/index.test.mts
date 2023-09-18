@@ -1,16 +1,19 @@
-import express, { Request, Response } from 'express';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { describe, it } from 'mocha';
+import express, { type Application, type NextFunction, type Request, type Response } from 'express';
 import request from 'supertest';
-import { installOpenApiValidator } from '../lib';
+import { installOpenApiValidator } from '../lib/index.mjs';
 
 interface IWithStatus {
     status?: number;
 }
 
-async function buildServer(install: boolean, env: string): Promise<express.Application> {
+async function buildServer(install: boolean, env: string): Promise<Application> {
     const app = express();
 
     if (install) {
-        await installOpenApiValidator(`${__dirname}/openapi.yaml`, app, env);
+        await installOpenApiValidator(join(dirname(fileURLToPath(import.meta.url)), 'openapi.yaml'), app, env);
     }
 
     app.get('/test', (req: Request, res: Response): void => {
@@ -20,13 +23,11 @@ async function buildServer(install: boolean, env: string): Promise<express.Appli
         });
     });
 
-    app.get('/auth', (req: Request, res: Response): unknown => res.status(204).end());
+    app.get('/auth', (_req: Request, res: Response): unknown => res.status(204).end());
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-        res.status((err as IWithStatus).status || 500).json(err);
-        next(err);
-    });
+    app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) =>
+        res.status((err as IWithStatus).status ?? 500).json(err),
+    );
 
     return app;
 }
