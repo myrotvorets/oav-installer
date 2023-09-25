@@ -7,7 +7,10 @@ export async function installOpenApiValidator(
     specFile: string,
     app: Express,
     env: string,
-    extraOptions: Partial<OpenApiValidatorOpts> = {},
+    extraOptions: Omit<
+        OpenApiValidatorOpts,
+        'apiSpec' | 'validateSecurity' | 'validateResponses' | 'validateFormats' | 'ajvFormats' | '$refParser'
+    > = {},
 ): Promise<void> {
     const loader = new OpenApiSpecLoader({
         apiDoc: specFile,
