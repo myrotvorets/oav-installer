@@ -1,0 +1,106 @@
+openapi: '3.1.0'
+
+info:
+  title: Test API
+  version: 1.0.0
+
+servers:
+  - url: /
+
+paths:
+  /test:
+    get:
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                additionalProperties: false
+                required:
+                  - id
+      links:
+        detailed-test:
+          operationId: detailed-test
+          parameters:
+            id: $response.body#/id
+    delete:
+      responses:
+        "204":
+          description: Sucecssful response
+      links:
+        detailed-test:
+          operationId: detailed-test
+          parameters:
+            id: 0
+
+    head:
+      responses:
+        "204":
+          description: Sucecssful response
+      links:
+        detailed-test:
+          operationId: detailed-test
+          parameters:
+            id: 0
+
+    options:
+      responses:
+        "204":
+          description: Sucecssful response
+      links:
+        detailed-test:
+          operationId: detailed-test
+          parameters:
+            id: 0
+
+    patch:
+      responses:
+        "204":
+          description: Sucecssful response
+      links:
+        detailed-test:
+          operationId: detailed-test
+          parameters:
+            id: 0
+
+    post:
+      responses:
+        "204":
+          description: Sucecssful response
+      links:
+        detailed-test:
+          operationId: detailed-test
+          parameters:
+            id: 0
+
+    put:
+      responses:
+        "204":
+          description: Sucecssful response
+      links:
+        detailed-test:
+          operationId: detailed-test
+          parameters:
+            id: 0
+
+    trace:
+      responses:
+        "204":
+          description: Sucecssful response
+      links:
+        detailed-test:
+          operationId: detailed-test
+          parameters:
+            id: 0
+
+  /test/{id}:
+    get:
+      operationId: detailed-test
+      responses:
+        "204":
+          description: Sucecssful response
