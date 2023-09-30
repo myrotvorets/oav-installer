@@ -23,6 +23,7 @@ export async function installOpenApiValidator(
     spec.apiDoc.servers = [{ url: '/' }];
 
     const validator = middleware({
+        fileUploader: false,
         ...extraOptions,
         apiSpec: spec.apiDoc,
         validateSecurity: false,
