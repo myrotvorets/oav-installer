@@ -17,7 +17,7 @@ async function buildServer(install: boolean, env: string): Promise<Application> 
 
     app.get('/test', (req, res): void => {
         res.json({
-            s: req.query.s,
+            s: req.query['s'],
             debug: true,
         });
     });
