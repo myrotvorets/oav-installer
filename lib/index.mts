@@ -2,6 +2,7 @@ import { middleware } from 'express-openapi-validator';
 import { OpenApiSpecLoader } from 'express-openapi-validator/dist/framework/openapi.spec.loader.js';
 import type { Express } from 'express';
 import type { OpenApiValidatorOpts } from 'express-openapi-validator/dist/openapi.validator.js';
+export type { OpenApiRequest, OpenApiRequestMetadata } from 'express-openapi-validator/dist/framework/types.js';
 
 export async function installOpenApiValidator(
     specFile: string,
