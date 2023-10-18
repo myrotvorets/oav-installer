@@ -26,7 +26,7 @@
   "devDependencies": {
     "@myrotvorets/eslint-config-myrotvorets-ts": "^2.22.5",
     "@types/express": "^4.17.20",
-    "@types/mocha": "^10.0.2",
+    "@types/mocha": "^10.0.3",
     "@types/supertest": "^2.0.14",
     "c8": "^8.0.1",
     "eslint-formatter-gha": "^1.4.2",
