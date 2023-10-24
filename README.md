@@ -6,7 +6,7 @@
 This package is internally used by our microservices.
 
 What it does is:
-1. Loads the OpenAPI specification.
-2. Transforms it (public and private services handle some parts differently)
+1. ~Loads the OpenAPI specification.~
+2. ~Transforms it (public and private services handle some parts differently)~
 3. Configures `express-openapi-validator`
-4. Installs `express-openapi-validator` into the Express application
+4. ~Installs `express-openapi-validator` into the Express application~
