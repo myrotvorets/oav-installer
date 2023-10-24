@@ -8,11 +8,11 @@ interface IWithStatus {
     status?: number;
 }
 
-async function buildServer(install: boolean, env: string): Promise<Application> {
+function buildServer(install: boolean, env: string): Application {
     const app = express();
 
     if (install) {
-        await installOpenApiValidator(join(dirname(fileURLToPath(import.meta.url)), 'openapi.yaml'), app, env);
+        app.use(installOpenApiValidator(join(dirname(fileURLToPath(import.meta.url)), 'openapi.yaml'), env));
     }
 
     app.get('/test', (req, res): void => {
@@ -33,31 +33,24 @@ async function buildServer(install: boolean, env: string): Promise<Application> 
 
 describe('installOpenApiValidator', function () {
     describe('Without installOpenApiValidator', function () {
-        it('should return 200 for bad request', async function (): Promise<unknown> {
-            const server = await buildServer(false, '');
+        it('should return 200 for bad request', function () {
+            const server = buildServer(false, '');
             return request(server).get('/test').expect(200);
         });
     });
 
     describe('With installOpenApiValidator', function () {
-        it('will not run security handlers', async function (): Promise<unknown> {
-            const server = await buildServer(true, 'test');
-            return request(server).get('/auth').expect(204);
-        });
-
         describe('in test mode', function () {
-            // This one checks that `servers` section gets overwritten
-            // If `servers` is not overwritten, the URL won't match the base URL constraint
-            it('will validate all requests', async function (): Promise<unknown> {
-                const server = await buildServer(true, 'test');
+            it('will validate all requests', function () {
+                const server = buildServer(true, 'test');
                 return request(server)
                     .get('/test')
                     .expect(400)
                     .expect(/\/query\/s/u);
             });
 
-            it('will thoroughly validate requests', async function (): Promise<unknown> {
-                const server = await buildServer(true, 'test');
+            it('will thoroughly validate requests', function () {
+                const server = buildServer(true, 'test');
                 return request(server)
                     .get('/test?s=2012-13-31')
                     .expect(400)
@@ -65,8 +58,8 @@ describe('installOpenApiValidator', function () {
                     .expect(/must match format/u);
             });
 
-            it('will validate responses', async function (): Promise<unknown> {
-                const server = await buildServer(true, 'test');
+            it('will validate responses', function () {
+                const server = buildServer(true, 'test');
                 return request(server)
                     .get('/test?s=2012-12-31')
                     .expect(500)
@@ -75,21 +68,21 @@ describe('installOpenApiValidator', function () {
         });
 
         describe('in production mode', function () {
-            it('will validate all requests', async function (): Promise<unknown> {
-                const server = await buildServer(true, 'production');
+            it('will validate all requests', function () {
+                const server = buildServer(true, 'production');
                 return request(server)
                     .get('/test')
                     .expect(400)
                     .expect(/\/query\/s/u);
             });
 
-            it('will not thoroughly validate requests', async function (): Promise<unknown> {
-                const server = await buildServer(true, 'production');
+            it('will not thoroughly validate requests', function () {
+                const server = buildServer(true, 'production');
                 return request(server).get('/test?s=2012-13-31').expect(200);
             });
 
-            it('will not validate responses', async function (): Promise<unknown> {
-                const server = await buildServer(true, 'production');
+            it('will not validate responses', function () {
+                const server = buildServer(true, 'production');
                 return request(server).get('/test?s=2012-12-31').expect(200);
             });
         });
