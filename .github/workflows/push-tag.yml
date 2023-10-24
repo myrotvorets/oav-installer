@@ -3,7 +3,7 @@ name: Pre-release Testing
 on:
   push:
     tags:
-      - "**"
+      - "v**"
 
 permissions:
   contents: read
