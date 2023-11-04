@@ -24,7 +24,7 @@
   "author": "Myrotvorets <support@myrotvorets.center> (https://myrotvorets.center/)",
   "license": "MIT",
   "devDependencies": {
-    "@myrotvorets/eslint-config-myrotvorets-ts": "^2.23.0",
+    "@myrotvorets/eslint-config-myrotvorets-ts": "^2.24.0",
     "@types/express": "^4.17.20",
     "@types/mocha": "^10.0.3",
     "@types/supertest": "^2.0.15",
