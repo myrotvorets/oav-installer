@@ -8,9 +8,12 @@
     "build": "tsc",
     "lint": "eslint -f gha .",
     "lint:fix": "eslint --fix .",
-    "prepare": "npm run build",
+    "prepack": "npm run build",
+    "typecheck": "tsc --noEmit",
     "test": "node --import=./loader.mjs test-runner.mjs",
-    "test:coverage": "c8 npm test"
+    "test:coverage": "c8 npm test",
+    "pretest:sonarqube": "npm run lint",
+    "test:sonarqube": "c8 npm test"
   },
   "files": [
     "dist/lib/index.d.mts",
