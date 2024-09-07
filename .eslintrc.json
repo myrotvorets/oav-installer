@@ -3,13 +3,12 @@
     "project": ["./tsconfig.json"],
     "sourceType": "module"
   },
+  "reportUnusedDisableDirectives": true,
   "extends": [
-    "@myrotvorets/myrotvorets-ts",
-    "plugin:mocha/recommended"
+    "@myrotvorets/myrotvorets-ts"
   ],
   "env": {
     "es2022": true,
-    "mocha": true,
     "node": true
   }
 }

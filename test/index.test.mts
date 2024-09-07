@@ -1,3 +1,4 @@
+import { describe, it } from 'node:test';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express, { type Application, type NextFunction, type Request, type Response } from 'express';
@@ -31,59 +32,65 @@ function buildServer(install: boolean, env: string): Application {
     return app;
 }
 
-describe('installOpenApiValidator', function () {
-    describe('Without installOpenApiValidator', function () {
-        it('should return 200 for bad request', function () {
+const keepTSHappy = (): Promise<void> => Promise.resolve();
+
+await describe('installOpenApiValidator', async () => {
+    await describe('Without installOpenApiValidator', async () => {
+        await it('should return 200 for bad request', () => {
             const server = buildServer(false, '');
-            return request(server).get('/test').expect(200);
+            return request(server).get('/test').expect(200).then(keepTSHappy);
         });
     });
 
-    describe('With installOpenApiValidator', function () {
-        describe('in test mode', function () {
-            it('will validate all requests', function () {
+    await describe('With installOpenApiValidator', async () => {
+        await describe('in test mode', async () => {
+            await it('will validate all requests', () => {
                 const server = buildServer(true, 'test');
                 return request(server)
                     .get('/test')
                     .expect(400)
-                    .expect(/\/query\/s/u);
+                    .expect(/\/query\/s/u)
+                    .then(keepTSHappy);
             });
 
-            it('will thoroughly validate requests', function () {
+            await it('will thoroughly validate requests', () => {
                 const server = buildServer(true, 'test');
                 return request(server)
                     .get('/test?s=2012-13-31')
                     .expect(400)
                     .expect(/\/query\/s/u)
-                    .expect(/must match format/u);
+                    .expect(/must match format/u)
+                    .then(keepTSHappy);
             });
 
-            it('will validate responses', function () {
+            await it('will validate responses', () => {
                 const server = buildServer(true, 'test');
                 return request(server)
                     .get('/test?s=2012-12-31')
                     .expect(500)
-                    .expect(/\/response\/debug/u);
+                    .expect(/\/response\/debug/u)
+                    .then(keepTSHappy);
             });
         });
 
-        describe('in production mode', function () {
-            it('will validate all requests', function () {
+        await describe('in production mode', async () => {
+            await it('will validate all requests', () => {
                 const server = buildServer(true, 'production');
                 return request(server)
                     .get('/test')
                     .expect(400)
-                    .expect(/\/query\/s/u);
+                    .expect(/\/query\/s/u)
+                    .then(keepTSHappy);
             });
 
-            it('will not thoroughly validate requests', function () {
+            await it('will not thoroughly validate requests', () => {
                 const server = buildServer(true, 'production');
-                return request(server).get('/test?s=2012-13-31').expect(200);
+                return request(server).get('/test?s=2012-13-31').expect(200).then(keepTSHappy);
             });
 
-            it('will not validate responses', function () {
+            await it('will not validate responses', () => {
                 const server = buildServer(true, 'production');
-                return request(server).get('/test?s=2012-12-31').expect(200);
+                return request(server).get('/test?s=2012-12-31').expect(200).then(keepTSHappy);
             });
         });
     });
