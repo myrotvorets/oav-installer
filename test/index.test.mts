@@ -1,7 +1,8 @@
 import { describe, it } from 'node:test';
+import type { RequestListener } from 'node:http';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import express, { type Application, type NextFunction, type Request, type Response } from 'express';
+import express, { type NextFunction, type Request, type Response } from 'express';
 import request from 'supertest';
 import { installOpenApiValidator } from '../lib/index.mjs';
 
@@ -9,8 +10,9 @@ interface IWithStatus {
     status?: number;
 }
 
-function buildServer(install: boolean, env: string): Application {
+function buildServer(install: boolean, env: string): RequestListener {
     const app = express();
+    app.set('x-powered-by', false);
 
     if (install) {
         app.use(installOpenApiValidator(join(dirname(fileURLToPath(import.meta.url)), 'openapi.yaml'), env));
@@ -23,13 +25,15 @@ function buildServer(install: boolean, env: string): Application {
         });
     });
 
-    app.get('/auth', (_req, res): unknown => res.status(204).end());
+    app.get('/auth', (_req, res): void => {
+        res.status(204).end();
+    });
 
-    app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) =>
-        res.status((err as IWithStatus).status ?? 500).json(err),
-    );
+    app.use((err: unknown, _req: Request, res: Response, _next: NextFunction): void => {
+        res.status((err as IWithStatus).status ?? 500).json(err);
+    });
 
-    return app;
+    return app as RequestListener;
 }
 
 const keepTSHappy = (): Promise<void> => Promise.resolve();
